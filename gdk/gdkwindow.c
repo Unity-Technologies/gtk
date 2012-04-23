@@ -126,6 +126,7 @@ enum {
   PICK_EMBEDDED_CHILD, /* only called if children are embedded */
   TO_EMBEDDER,
   FROM_EMBEDDER,
+  NATIVE_CHILD_EVENT,
   LAST_SIGNAL
 };
 
@@ -585,6 +586,19 @@ gdk_window_class_init (GdkWindowObjectClass *klass)
 		  G_TYPE_DOUBLE,
 		  G_TYPE_POINTER,
 		  G_TYPE_POINTER);
+
+  signals[NATIVE_CHILD_EVENT] =
+    g_signal_new (g_intern_static_string ("native-child-event"),
+		  G_OBJECT_CLASS_TYPE (object_class),
+		  G_SIGNAL_RUN_LAST,
+		  0,
+		  NULL, NULL,
+		  _gdk_marshal_VOID__POINTER_POINTER,
+		  G_TYPE_NONE,
+		  2,
+		  G_TYPE_POINTER,
+		  G_TYPE_POINTER);
+
 }
 
 static void

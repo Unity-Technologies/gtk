@@ -742,11 +742,31 @@ find_window_for_ns_event (NSEvent *nsevent,
               {
                 GdkWindowObject *toplevel_private;
                 GdkWindowImplQuartz *toplevel_impl;
+                guint n_subviews;
+                guint i;
 
                 toplevel = toplevel_under_pointer;
 
                 toplevel_private = (GdkWindowObject *)toplevel;
                 toplevel_impl = (GdkWindowImplQuartz *)toplevel_private->impl;
+
+                n_subviews = [[toplevel_impl->view subviews] count];
+
+                for (i = 0; i < n_subviews; ++i)
+                  {
+                    NSView* sv = [[toplevel_impl->view subviews] objectAtIndex:i];
+                    NSRect r = [sv frame];
+
+                    if (r.origin.x <= *x && r.origin.x + r.size.width >= *x &&
+                        r.origin.y <= *y && r.origin.y + r.size.height >= *y)
+                      {
+                        g_signal_emit_by_name (toplevel, "native-child-event",
+                                               sv, nsevent);
+
+                        /* event is within subview, forward back to Cocoa */
+                        return NULL;
+                      }
+                  }
 
                 *x = x_tmp;
                 *y = y_tmp;

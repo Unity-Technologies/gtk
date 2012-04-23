@@ -731,6 +731,7 @@ gtk_use_win32_c_sources = \
 	gtkwin32embedwidget.c \
 	gtkmountoperation-stub.c
 gtk_use_quartz_c_sources =	\
+	gtknsview.c		\
 	gtksearchenginequartz.c	\
 	gtkplug-stub.c		\
 	gtksocket-stub.c	\
@@ -751,6 +752,7 @@ else
 if USE_QUARTZ
 libgtk_quartz_2_0_la_CFLAGS = "-xobjective-c"
 gtk_private_h_sources += gtksearchenginequartz.h
+gtk_public_h_sources += gtknsview.h
 gtk_c_sources += $(gtk_use_quartz_c_sources)
 else
 gtk_c_sources += $(gtk_use_stub_c_sources)

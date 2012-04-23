@@ -8,7 +8,8 @@ INCLUDES =				\
 	-DGDK_DISABLE_DEPRECATED	\
 	-DGTK_DISABLE_DEPRECATED	\
 	$(GTK_DEBUG_FLAGS)		\
-	$(GTK_DEP_CFLAGS)
+	$(GTK_DEP_CFLAGS)		\
+	-xobjective-c
 
 DEPS =									\
 	$(top_builddir)/gdk/$(gdktargetlib)				\
@@ -57,6 +58,7 @@ noinst_PROGRAMS =  $(TEST_PROGS)	\
 	testmultiscreen			\
 	testnotebookdnd			\
 	testnouiprint			\
+	testnsview			\
 	testoffscreen			\
 	testoffscreenwindow		\
 	testorientable			\
@@ -134,6 +136,7 @@ testmultidisplay_DEPENDENCIES = $(TEST_DEPS)
 testmultiscreen_DEPENDENCIES = $(TEST_DEPS)
 testnotebookdnd_DEPENDENCIES = $(TEST_DEPS)
 testnouiprint_DEPENDENCIES = $(TEST_DEPS)
+testnsview_DEPENDENCIES = $(TEST_DEPS)
 testoffscreen_DEPENDENCIES = $(TEST_DEPS)
 testoffscreenwindow_DEPENDENCIES = $(TEST_DEPS)
 testorientable_DEPENDENCIES = $(TEST_DEPS)
@@ -165,6 +168,8 @@ testgrouping_DEPENDENCIES = $(TEST_DEPS)
 testtooltips_DEPENDENCIES = $(TEST_DEPS)
 testvolumebutton_DEPENDENCIES = $(TEST_DEPS)
 testwindows_DEPENDENCIES = $(TEST_DEPS)
+
+testnsview_LDFLAGS = -framework WebKit
 
 testentrycompletion_SOURCES = 	\
 	prop-editor.c		\
@@ -261,6 +266,9 @@ testrecentchoosermenu_SOURCES =	\
 
 testvolumebutton_SOURCES =	\
 	testvolumebutton.c
+
+testnsview_SOURCES =		\
+	testnsview.c
 
 testoffscreen_SOURCES = 	\
 	gtkoffscreenbox.c	\

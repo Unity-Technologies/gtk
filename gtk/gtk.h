@@ -218,6 +218,10 @@
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkwindow.h>
 
+#ifdef GDK_WINDOWING_QUARTZ
+#include <gtk/gtknsview.h>
+#endif
+
 /* Broken */
 #include <gtk/gtktext.h>
 #include <gtk/gtktree.h>
