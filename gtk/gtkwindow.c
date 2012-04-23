@@ -5766,7 +5766,7 @@ center_window_on_monitor (GtkWindow *window,
   if (monitor_num == -1)
     monitor_num = get_center_monitor_of_window (window);
 
-  gdk_screen_get_monitor_geometry (gtk_window_check_screen (window),
+  gdk_screen_get_monitor_workarea (gtk_window_check_screen (window),
 				   monitor_num, &monitor);
   
   *x = (monitor.width - w) / 2 + monitor.x;
@@ -5912,7 +5912,7 @@ gtk_window_compute_configure_request (GtkWindow    *window,
              */
             if (monitor_num >= 0)
               {
-                gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+                gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
                 clamp_window_to_rectangle (&x, &y, w, h, &monitor);
               }
           }
@@ -5947,7 +5947,7 @@ gtk_window_compute_configure_request (GtkWindow    *window,
              */
             if (monitor_num >= 0)
               {
-                gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+                gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
                 clamp_window_to_rectangle (&x, &y, w, h, &monitor);
               }
           }

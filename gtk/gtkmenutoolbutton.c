@@ -287,7 +287,7 @@ menu_position_func (GtkMenu           *menu,
   monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
   if (monitor_num < 0)
     monitor_num = 0;
-  gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+  gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
     {

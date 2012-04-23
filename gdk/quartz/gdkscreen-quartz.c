@@ -464,6 +464,36 @@ gdk_screen_get_monitor_geometry (GdkScreen    *screen,
   *dest = GDK_SCREEN_QUARTZ (screen)->screen_rects[monitor_num];
 }
 
+void
+gdk_screen_get_monitor_workarea (GdkScreen    *screen,
+                                 gint          monitor_num,
+                                 GdkRectangle *dest)
+{
+  GdkScreenQuartz *quartz_screen;
+  NSArray *array;
+  NSScreen *nsscreen;
+  NSRect rect;
+
+  g_return_if_fail (GDK_IS_SCREEN (screen));
+  g_return_if_fail (monitor_num < gdk_screen_get_n_monitors (screen));
+  g_return_if_fail (monitor_num >= 0);
+
+  quartz_screen = GDK_SCREEN_QUARTZ (screen);
+
+  GDK_QUARTZ_ALLOC_POOL;
+
+  array = [NSScreen screens];
+  nsscreen = [array objectAtIndex:monitor_num];
+  rect = [nsscreen visibleFrame];
+
+  dest->x = rect.origin.x - quartz_screen->min_x;
+  dest->y = quartz_screen->height - (rect.origin.y + rect.size.height) + quartz_screen->min_y;
+  dest->width = rect.size.width;
+  dest->height = rect.size.height;
+
+  GDK_QUARTZ_RELEASE_POOL;
+}
+
 gchar *
 gdk_screen_make_display_name (GdkScreen *screen)
 {

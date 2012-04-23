@@ -951,7 +951,7 @@ set_default_size (GtkRecentChooserDefault *impl)
   screen = gtk_widget_get_screen (widget);
   monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
 
-  gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+  gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
   width = MIN (width, monitor.width * 3 / 4);
   height = MIN (height, monitor.height * 3 / 4);
@@ -1849,7 +1849,7 @@ popup_position_func (GtkMenu   *menu,
 
   monitor_num = gdk_screen_get_monitor_at_point (screen, *x, *y);
   gtk_menu_set_monitor (menu, monitor_num);
-  gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+  gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
   *x = CLAMP (*x, monitor.x, monitor.x + MAX (0, monitor.width - req.width));
   *y = CLAMP (*y, monitor.y, monitor.y + MAX (0, monitor.height - req.height));

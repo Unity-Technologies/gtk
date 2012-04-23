@@ -1409,7 +1409,7 @@ _gtk_entry_completion_resize_popup (GtkEntryCompletion *completion)
   screen = gtk_widget_get_screen (GTK_WIDGET (completion->priv->entry));
   monitor_num = gdk_screen_get_monitor_at_window (screen, 
 						  GTK_WIDGET (completion->priv->entry)->window);
-  gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+  gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
   
 

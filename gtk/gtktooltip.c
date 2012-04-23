@@ -949,7 +949,7 @@ gtk_tooltip_position (GtkTooltip *tooltip,
                                &requisition);
 
       monitor_num = gdk_screen_get_monitor_at_point (screen, x, y);
-      gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+      gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
       if (x + requisition.width > monitor.x + monitor.width)
         x -= x - (monitor.x + monitor.width) + requisition.width;

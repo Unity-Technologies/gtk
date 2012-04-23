@@ -95,6 +95,9 @@ gint          gdk_screen_get_primary_monitor   (GdkScreen *screen);
 void          gdk_screen_get_monitor_geometry  (GdkScreen *screen,
 						gint       monitor_num,
 						GdkRectangle *dest);
+void          gdk_screen_get_monitor_workarea  (GdkScreen    *screen,
+                                                gint          monitor_num,
+                                                GdkRectangle *dest);
 gint          gdk_screen_get_monitor_at_point  (GdkScreen *screen,
 						gint       x,
 						gint       y);

@@ -648,7 +648,7 @@ build_button_event (GtkStatusIconPrivate *priv,
   GdkRectangle monitor0;
 
   /* We know that gdk/win32 puts the primary monitor at index 0 */
-  gdk_screen_get_monitor_geometry (gdk_screen_get_default (), 0, &monitor0);
+  gdk_screen_get_monitor_workarea (gdk_screen_get_default (), 0, &monitor0);
   e->window = g_object_ref (gdk_get_default_root_window ());
   e->send_event = TRUE;
   e->time = GetTickCount ();
@@ -2512,7 +2512,7 @@ gtk_status_icon_position_menu (GtkMenu  *menu,
     monitor_num = 0;
   gtk_menu_set_monitor (menu, monitor_num);
 
-  gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+  gdk_screen_get_monitor_workarea (screen, monitor_num, &monitor);
 
   gdk_window_get_origin (widget->window, x, y);
   
