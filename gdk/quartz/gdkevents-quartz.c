@@ -684,9 +684,23 @@ find_window_for_ns_event (NSEvent *nsevent,
                 /* Finally check the grab window. */
 		GdkWindow *grab_toplevel;
 
-		grab_toplevel = gdk_window_get_effective_toplevel (grab->window);
-                get_window_point_from_screen_point (grab_toplevel,
-                                                    screen_point, x, y);
+                if (grab->window == NULL)
+                  {
+                    g_warning ("grab->window == NULL");
+                  }
+                else
+                  {
+                    grab_toplevel = gdk_window_get_effective_toplevel (grab->window);
+                    if (grab_toplevel == NULL)
+                      {
+                        g_warning ("grab_toplevel == NULL");
+                      }
+                    else
+                      {
+                        get_window_point_from_screen_point (grab_toplevel,
+                                                            screen_point, x, y);
+                      }
+                  }
 
 		return grab_toplevel;
 	      }
