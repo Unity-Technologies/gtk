@@ -41,3 +41,17 @@ gdk_quartz_osx_version (void)
   else
     return minor;
 }
+
+static gboolean fix_modifiers = FALSE;
+
+void
+gdk_quartz_set_fix_modifiers (gboolean fix)
+{
+  fix_modifiers = fix;
+}
+
+gboolean
+gdk_quartz_get_fix_modifiers (void)
+{
+  return fix_modifiers;
+}

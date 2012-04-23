@@ -706,11 +706,11 @@ gdk_keymap_translate_keyboard_state (GdkKeymap       *keymap,
   for (bit = GDK_SHIFT_MASK; bit < GDK_BUTTON1_MASK; bit <<= 1)
     {
       if (translate_keysym (hardware_keycode,
-                            (bit == GDK_MOD1_MASK) ? 0 : group,
+                            (bit == (gdk_quartz_get_fix_modifiers () ? GDK_MOD1_MASK : GDK_MOD2_MASK)) ? 0 : group,
                             state & ~bit,
                             NULL, NULL) !=
 	  translate_keysym (hardware_keycode,
-                            (bit == GDK_MOD1_MASK) ? 1 : group,
+                            (bit == (gdk_quartz_get_fix_modifiers () ? GDK_MOD1_MASK : GDK_MOD2_MASK)) ? 1 : group,
                             state | bit,
                             NULL, NULL))
 	tmp_modifiers |= bit;
@@ -731,16 +731,32 @@ void
 gdk_keymap_add_virtual_modifiers (GdkKeymap       *keymap,
                                   GdkModifierType *state)
 {
-  if (*state & GDK_MOD2_MASK)
-    *state |= GDK_META_MASK;
+  if (gdk_quartz_get_fix_modifiers ())
+    {
+      if (*state & GDK_MOD2_MASK)
+        *state |= GDK_META_MASK;
+    }
+  else
+    {
+      if (*state & GDK_MOD1_MASK)
+        *state |= GDK_META_MASK;
+    }
 }
 
 gboolean
 gdk_keymap_map_virtual_modifiers (GdkKeymap       *keymap,
                                   GdkModifierType *state)
 {
-  if (*state & GDK_META_MASK)
-    *state |= GDK_MOD2_MASK;
+  if (gdk_quartz_get_fix_modifiers ())
+    {
+      if (*state & GDK_META_MASK)
+        *state |= GDK_MOD2_MASK;
+    }
+  else
+    {
+      if (*state & GDK_META_MASK)
+        *state |= GDK_MOD1_MASK;
+    }
 
   return TRUE;
 }

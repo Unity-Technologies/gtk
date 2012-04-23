@@ -122,7 +122,7 @@ gboolean _gtk_fnmatch (const char *pattern,
 #ifndef GDK_WINDOWING_QUARTZ
 #define GTK_NO_TEXT_INPUT_MOD_MASK (GDK_MOD1_MASK | GDK_CONTROL_MASK)
 #else
-#define GTK_NO_TEXT_INPUT_MOD_MASK (GDK_MOD2_MASK | GDK_CONTROL_MASK)
+#define GTK_NO_TEXT_INPUT_MOD_MASK (gdk_quartz_get_fix_modifiers () ? (GDK_MOD2_MASK | GDK_CONTROL_MASK) : (GDK_MOD1_MASK | GDK_CONTROL_MASK))
 #endif
 
 #ifndef GDK_WINDOWING_QUARTZ
@@ -130,13 +130,13 @@ gboolean _gtk_fnmatch (const char *pattern,
 #define GTK_MODIFY_SELECTION_MOD_MASK GDK_CONTROL_MASK
 #else
 #define GTK_EXTEND_SELECTION_MOD_MASK GDK_SHIFT_MASK
-#define GTK_MODIFY_SELECTION_MOD_MASK GDK_MOD2_MASK
+#define GTK_MODIFY_SELECTION_MOD_MASK (gdk_quartz_get_fix_modifiers () ? GDK_MOD2_MASK : GDK_MOD1_MASK)
 #endif
 
 #ifndef GDK_WINDOWING_QUARTZ
 #define GTK_TOGGLE_GROUP_MOD_MASK 0
 #else
-#define GTK_TOGGLE_GROUP_MOD_MASK GDK_MOD1_MASK
+#define GTK_TOGGLE_GROUP_MOD_MASK (gdk_quartz_get_fix_modifiers () ? GDK_MOD1_MASK : 0)
 #endif
 
 gboolean _gtk_button_event_triggers_context_menu (GdkEventButton *event);

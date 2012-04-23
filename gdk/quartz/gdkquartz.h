@@ -58,6 +58,9 @@ id        gdk_quartz_drag_context_get_dragging_info_libgtk_only (GdkDragContext 
 NSEvent  *gdk_quartz_event_get_nsevent                          (GdkEvent       *event);
 GdkOSXVersion gdk_quartz_osx_version                            (void);
 
+void      gdk_quartz_set_fix_modifiers (gboolean fix);
+gboolean  gdk_quartz_get_fix_modifiers (void);
+
 G_END_DECLS
 
 #endif /* __GDK_QUARTZ_H__ */
